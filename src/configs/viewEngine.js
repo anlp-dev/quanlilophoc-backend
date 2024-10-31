@@ -1,12 +1,21 @@
-const path = require('path');
-const express = require('express')
+const path = require("path");
+const express = require("express");
+const morgan = require("morgan");
 const configViewEngine = (app) => {
   // configure template engine
   app.set("views", path.join(__dirname, "../views"));
   app.set("view engine", "ejs");
 
+  // config morgan
+  app.use(morgan("dev"));
   // config static files
   app.use(express.static(path.join(__dirname, "../public")));
+
+  // Middleware xử lý JSON body
+  app.use(express.json());
+
+  // Middleware xử lý urlencoded body (dành cho form data)
+  app.use(express.urlencoded({ extended: true }));
 };
 
 module.exports = configViewEngine;
