@@ -10,6 +10,10 @@ const Success = {
   UPDATE_SUCCESS: new MessageSuccess(200, 'Update success.'),
   DELETE_SUCCESS: new MessageSuccess(202, 'Delete success.'),
   GET_DATA: new MessageSuccess(200, 'Get data success.'),
+  REGISTER_SUCCESS: new MessageSuccess(201, 'Register success.'),
+  LOGIN_SUCCESS: new MessageSuccess(200, 'Login success.'),
+  LOGOUT_SUCCESS: new MessageSuccess(200, 'Logout success.'),
+  LOAD_ID_BY_TOKEN: new MessageSuccess(200, 'Load id by token success.'),
 }
 
 module.exports = Success;

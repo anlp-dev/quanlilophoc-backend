@@ -1,14 +1,13 @@
-const Student = require("../models/Student");
 const Error = require("../messages/errors/Error");
 const Mess_Success = require("../messages/success/MessageSuccess");
+const StudentService = require("../services/StudentService");
 
 class StudentController {
 
   // [DELETE] /student/delete/:id
-  async deleteStudentById(req, res){
+   async deleteStudentById(req, res){
     try {
-      const id = req.params.id;
-      const res_data = await Student.findByIdAndDelete(id);
+      const res_data = await StudentService.deleteStudentById(req.params.id);
       if(!res_data){
         return res.status(Error.NOT_FOUND_STUDENT_ID.status).json({
           status: Error.NOT_FOUND_STUDENT_ID.status,
@@ -30,13 +29,7 @@ class StudentController {
   // [PUT] /student/update/:id
   async updateStudent(req, res) {
     try {
-      const id = req.params.id;
-      const data = req.body;
-      console.log(id);
-      const res_data = await Student.findByIdAndUpdate(id, data, {
-        new: true,
-        runValidators: true,
-      });
+      const res_data = await StudentService.updateStudent(req.params.id, req.body);
       if (!res_data) {
         res
           .status(Error.NOT_FOUND_STUDENT.status)
@@ -57,9 +50,7 @@ class StudentController {
   // [POST] /student/create
   async createStudent(req, res) {
     try {
-      const student = new Student(req.body);
-      console.log(req.body);
-      const res_data = await Student.create(student);
+      const res_data = await StudentService.createStudent(req.body);
       res.status(Mess_Success.CREATE_SUCCESS.status).json({
         status: Mess_Success.CREATE_SUCCESS.status,
         message: Mess_Success.CREATE_SUCCESS.message,
@@ -76,7 +67,7 @@ class StudentController {
   // [GET] /student/all
   async getAllStudent(req, res) {
     try {
-      const res_data = await Student.find({});
+      const res_data = await StudentService.getAllStudent();
       res.status(Mess_Success.GET_DATA.status).json({
         status: Mess_Success.GET_DATA.status,
         message: Mess_Success.GET_DATA.message,

@@ -6,8 +6,11 @@ const router = require('./routes/MainRoutes');
 const { connect } = require('./database/db');
 const port = process.env.PORT || 8888;
 const hostname = process.env.HOST_NAME || 'localhost';
+const security = require('./configs/security');
+require('./configs/auth');
 
 connect();
+security(app);
 configViewEngine(app);
 
 app.use(router)

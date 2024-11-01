@@ -1,6 +1,8 @@
 const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
+
+
 const configViewEngine = (app) => {
   // configure template engine
   app.set("views", path.join(__dirname, "../views"));
@@ -11,11 +13,6 @@ const configViewEngine = (app) => {
   // config static files
   app.use(express.static(path.join(__dirname, "../public")));
 
-  // Middleware xử lý JSON body
-  app.use(express.json());
-
-  // Middleware xử lý urlencoded body (dành cho form data)
-  app.use(express.urlencoded({ extended: true }));
 };
 
 module.exports = configViewEngine;
