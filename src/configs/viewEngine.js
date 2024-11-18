@@ -1,6 +1,8 @@
 const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger/swagger');
 
 
 const configViewEngine = (app) => {
@@ -13,6 +15,8 @@ const configViewEngine = (app) => {
   // config static files
   app.use(express.static(path.join(__dirname, "../public")));
 
+  // config swagger
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 };
 
 module.exports = configViewEngine;

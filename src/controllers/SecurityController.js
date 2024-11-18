@@ -1,23 +1,12 @@
 const Error = require("../messages/errors/Error");
 const Mess_Success = require("../messages/success/MessageSuccess");
-const jwt = require("jsonwebtoken");
-const secret = require("../configs/secrets");
-const bcrypt = require("bcryptjs");
-const Account = require("../models/Account");
 const authMiddleware = require("../middleware/authMiddleware");
-const passport = require("passport");
+const AccountService = require("../services/AccountService");
 class SecurityController {
   // [POST] /auth/register
   async register(req, res) {
     try {
-      const { username, password } = req.body;
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const account = new Account({
-        username: username,
-        password: hashedPassword,
-      });
-      await account.save();
-
+      await AccountService.createAccount(req.body);
       res.status(Mess_Success.REGISTER_SUCCESS.status).json({
         status: Mess_Success.REGISTER_SUCCESS.status,
         message: Mess_Success.REGISTER_SUCCESS.message,
@@ -28,18 +17,14 @@ class SecurityController {
   }
   // [POST] /auth/login
   login(req, res) {
-    const token = jwt.sign({ userId: req.user._id }, secret.JWT_SECRET_KEY);
-    if (!token) {
-      return res.json({
-        status: Error.LOGIN_FAIL.status,
-        message: Error.LOGIN_FAIL.message,
-      });
+    try {
+      const res_data = AccountService.login(req)
+      console.log(res_data)
+      res.json(res_data)
+    } catch (error) {
+      console.log(error)
+      res.json({ status: error.status, message: error.message });
     }
-    res.json({
-      status: Mess_Success.LOGIN_SUCCESS.status,
-      message: Mess_Success.LOGIN_SUCCESS.message,
-      token: token,
-    });
   }
   // [GET] /auth/profile
   getAccountByToken(req, res) {
@@ -48,6 +33,20 @@ class SecurityController {
       message: Mess_Success.LOAD_ID_BY_TOKEN.message,
       data: req.account,
     });
+  }
+
+  async getAccountByUserId(req, res){
+    try {
+      const res_data = await AccountService.getAccountByUserId(req.params.id);
+      res.json({
+        status: 200,
+        message: 'Load data user success',
+        data: res_data
+      })
+    } catch (error) {
+      console.log(error)
+      res.json({ status: error.status, message: error.message });
+    }
   }
 }
 

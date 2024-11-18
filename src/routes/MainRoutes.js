@@ -4,13 +4,14 @@ const router = express.Router();
 const StudentRouter = require('./StudentRoutes');
 const TeacherRouter = require('./TeacherRoutes');
 const AuthRouter = require('./AuthRoutes');
+const ClassRouter = require('./ClassRoutes')
+const RoleRouter = require('./RoleRoutes')
 
-
+router.use('/role', RoleRouter)
+router.use('/class', ClassRouter);
 router.use('/teacher', TeacherRouter);
 router.use('/student', StudentRouter);
 router.use("/auth", AuthRouter);
 router.use("/",  getHomePage);
-
-
 
 module.exports = router;

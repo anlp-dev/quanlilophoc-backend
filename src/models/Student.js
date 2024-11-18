@@ -9,6 +9,7 @@ const Student = new Schema({
   gender: {type: String},
   address: {type: String},
   phoneNumber: {type: String},
+  classId: {type: String}
 })
 
 module.exports = mongoose.model('Student', Student)
