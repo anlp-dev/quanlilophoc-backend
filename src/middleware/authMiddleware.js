@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const secret = require("../configs/secrets");
+const {getPermissionsForUser} = require('../database/db');
 
 const auth = (req, res, next) => {
   try {

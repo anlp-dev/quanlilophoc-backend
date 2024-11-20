@@ -12,7 +12,7 @@ class ClassService{
 
   async getClassById(id){
     try {
-      const res = await Class.findById(id).populate("students");
+      const res = await Class.findById(id).populate("students").populate("teacherId").populate("courseId");
       return res;
     } catch (error) {                           
       throw new Error(error);
