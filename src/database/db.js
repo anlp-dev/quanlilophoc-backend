@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const Account = require('../models/Account');
+const RolePermission = require('../models/RolePermission');
+const Permission = require('../models/Permission');
 require('dotenv').config()
 async function connect(){
   try {
@@ -9,4 +12,20 @@ async function connect(){
   }
 }
 
-module.exports = {connect};
+async function getPermissionsForUser(userId){
+  try {
+    const account = await Account.findById(userId);
+    if(!account){
+      return [];
+    }
+    const rolePermission = await RolePermission.find({roleId: account.roleId});
+    const permissionIds = rolePermission.map(rp => rp.permissionId);
+    const permissions = await Permission.find({_id: {$in: permissionIds}})
+    return permissions.map(p => p.name);
+  } catch (error) {
+    console.error('Lỗi khi lấy quyền:', error);
+    return [];                                                                                                                                                                                                    
+  }
+}
+
+module.exports = {connect, getPermissionsForUser};

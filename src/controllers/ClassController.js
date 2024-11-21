@@ -21,7 +21,7 @@ class ClassController {
 
   async getById(req, res){
     try {
-      const res_data = await ClassService.getStudentById(req.params.id);
+      const res_data = await ClassService.getClassById(req.params.id);
       res.json({
         status: Mess_Success.GET_CLASS.status,
         message: Mess_Success.GET_CLASS.message,
