@@ -10,6 +10,62 @@ const Teacher = require("../models/Teacher");
 const Student = require("../models/Student");
 
 class AccountService {
+  async updateAccount(accountData, id){
+    try {
+      const {address, dateOfBirth, email, fullname, gender, phone} = accountData;
+      const res_address = await Account.find({email: email});
+      if(res_address){
+        return{
+          success: false,
+          status: 404,
+          message: 'Email đã tồn tại!!!',
+        }
+      }
+      const account = await Account.findById(id).populate('roleId');
+      let account_res;
+      if(!account){
+        return {
+          success: false,
+          status: 404,
+          message: 'Không tìm thấy tài khoản !!!',
+        }
+      }
+      account.fullname = fullname;
+      account.email = email;
+      await account.save();
+      if(account.roleId.code === ROLE.TEACHER_CODE){
+        const teacher = await Teacher.findById(account.teacherId);
+        teacher.address = address;
+        teacher.phoneNumber = phone;
+        teacher.dateOfBirth = dateOfBirth;
+        teacher.gender = gender;
+        await teacher.save();
+        account_res = await account.populate('teacherId'); 
+      }else if(account.roleId.code === ROLE.STUDENT_CODE){
+        const student = await Student.findById(account.studentId);
+        student.address = address;
+        student.phoneNumber = phone;
+        student.dateOfBirth = dateOfBirth;
+        student.gender = gender;
+        await student.save();
+        account_res = await account.populate('studentId'); 
+      }
+      return {
+        success: true,
+        status: 200,
+        message: 'Thay đổi thông tin người dùng thành công !!!',
+        data: account_res
+      }
+    } catch (error) {
+      return {
+        success: false,
+        status: 500,
+        message: 'Lỗi hệ thống !!!'
+      }
+    }
+  }
+
+
   async createAccount(accountData) {
     try {
       const { username, password, roleId, email, fullname } = accountData;

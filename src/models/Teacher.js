@@ -7,8 +7,6 @@ const Teacher = new Schema({
     ref: 'Account', // Tham chiếu đến collection Account
     default: null 
   },
-  firstName: { type: String, default: null },
-  lastName: { type: String, default: null },
   dateOfBirth: { type: Date, default: null },
   gender: { type: String, default: null },
   address: { type: String, default: null },

@@ -6,7 +6,9 @@ const TeacherRouter = require('./TeacherRoutes');
 const AuthRouter = require('./AuthRoutes');
 const ClassRouter = require('./ClassRoutes')
 const RoleRouter = require('./RoleRoutes')
+const AccountRouter = require('./AccountRoutes')
 
+router.use('/account', AccountRouter);
 router.use('/role', RoleRouter)
 router.use('/class', ClassRouter);
 router.use('/teacher', TeacherRouter);
