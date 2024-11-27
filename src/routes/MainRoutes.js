@@ -7,7 +7,9 @@ const AuthRouter = require('./AuthRoutes');
 const ClassRouter = require('./ClassRoutes')
 const RoleRouter = require('./RoleRoutes')
 const AccountRouter = require('./AccountRoutes')
+const EmailRouter = require('./EmailRoutes')
 
+router.use('/email', EmailRouter);
 router.use('/account', AccountRouter);
 router.use('/role', RoleRouter)
 router.use('/class', ClassRouter);
