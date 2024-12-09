@@ -30,7 +30,7 @@ const security = (app) => {
 
   // cac routes phai co token moi co the truy cap duoc
   app.use((req, res, next) => {
-    const noAuthPaths = ["/auth/login", "/auth/register", "/api-docs", "/role/", "/email/"];
+    const noAuthPaths = ["/auth/login", "/auth/register", "/api-docs", "/role/", "/email/", "/system/statistics/requests", "/system/log"];
     if (noAuthPaths.includes(req.path)) {
       next();
     } else {

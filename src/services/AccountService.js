@@ -1,26 +1,18 @@
 const Error = require("../messages/errors/Error");
 const Mess_Success = require("../messages/success/MessageSuccess");
 const bcrypt = require("bcryptjs");
-const Account = require("../models/Account");
+const Account = require("../models/accounts/Account");
 const { v4: uuidv4 } = require("uuid");
 const secret = require("../configs/secrets");
 const jwt = require("jsonwebtoken");
 const ROLE = require('../enums/role');
-const Teacher = require("../models/Teacher");
-const Student = require("../models/Student");
+const Teacher = require("../models/class/Teacher");
+const Student = require("../models/class/Student");
 
 class AccountService {
   async updateAccount(accountData, id){
     try {
-      const {address, dateOfBirth, email, fullname, gender, phone} = accountData;
-      const res_address = await Account.find({email: email});
-      if(res_address){
-        return{
-          success: false,
-          status: 404,
-          message: 'Email đã tồn tại!!!',
-        }
-      }
+      const {address, dateOfBirth, fullname, gender, phone} = accountData;
       const account = await Account.findById(id).populate('roleId');
       let account_res;
       if(!account){
@@ -31,7 +23,6 @@ class AccountService {
         }
       }
       account.fullname = fullname;
-      account.email = email;
       await account.save();
       if(account.roleId.code === ROLE.TEACHER_CODE){
         const teacher = await Teacher.findById(account.teacherId);
@@ -109,7 +100,7 @@ class AccountService {
     return token;
   }
   // login
-   login(req) {
+   async login(req) {
     try {
       // const user_res = await Account.findById(req.user._id);
       // if (!user_res) {
@@ -119,16 +110,7 @@ class AccountService {
       //   };
       // }
 
-      // const isMatch = await bcrypt.compare(
-      //   req.user.password,
-      //   user_res.password
-      // );
-      // if (!isMatch) {
-      //   return {
-      //     status: Error.PASSWORD_INCORECT.status,
-      //     message: Error.PASSWORD_INCORECT.message,
-      //   };
-      // }
+
 
       const token = this.generateToken(req.user._id);
       if (!token) {

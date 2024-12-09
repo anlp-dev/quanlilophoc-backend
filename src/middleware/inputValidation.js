@@ -1,4 +1,4 @@
-const Account =  require("../models/Account");
+const Account =  require("../models/accounts/Account");
 
 const inputValidationAccount = async (req, res, next) => {
   try {

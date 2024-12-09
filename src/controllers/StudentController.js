@@ -74,7 +74,6 @@ class StudentController {
         data: res_data,
       });
     } catch (err) {
-      console.log(err);
       res.status(Error.NOT_FOUND_STUDENT.status).json({
         status: Error.NOT_FOUND_STUDENT.status,
         message: Error.NOT_FOUND_STUDENT.message,

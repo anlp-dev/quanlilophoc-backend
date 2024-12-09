@@ -3,7 +3,6 @@ const {getPermissionsForUser} = require('../database/db')
 function checkPermission(permission){
   return async function (req, res, next) {
     try {
-      console.log('account:  ', req.account.userId)
       const userPermissions = await getPermissionsForUser(req.account.userId);
       if (userPermissions.includes(permission)) {
         next();
