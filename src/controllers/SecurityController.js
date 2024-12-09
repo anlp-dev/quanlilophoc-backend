@@ -16,10 +16,9 @@ class SecurityController {
     }
   }
   // [POST] /auth/login
-  login(req, res) {
+  async login(req, res) {
     try {
-      const res_data = AccountService.login(req)
-      console.log(res_data)
+      const res_data = await AccountService.login(req)
       res.json(res_data)
     } catch (error) {
       console.log(error)
