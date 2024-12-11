@@ -17,17 +17,6 @@ connect();
 configViewEngine(app);
 security(app);
 app.use(router)
-
-app.get('/', (req, res) => res.send('Hello World!'))
-
 app.listen(port, hostname, () => {
   console.log(`App listening at http://${hostname}:${port}`)
 })
-
-const ServerlessHttp = require('serverless-http');
-const handler = ServerlessHttp(app);
-
-module.exports.handler = async (event, context) => {
-  const res = await handler(event, context);
-  return res;
-};
