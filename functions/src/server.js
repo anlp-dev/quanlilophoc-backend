@@ -9,10 +9,8 @@ const cors = require('cors');
 const port = process.env.PORT || 8888;
 const hostname = process.env.HOST_NAME || 'localhost';
 const security = require('./configs/security');
-const handler = ServerlessHttp(app);
 
 require('./configs/auth');
-const ServerlessHttp = require("serverless-http");
 app.use(logRequest)
 app.use(cors());
 connect();
@@ -20,11 +18,16 @@ configViewEngine(app);
 security(app);
 app.use(router)
 
+app.get('/', (req, res) => res.send('Hello World!'))
+
 app.listen(port, hostname, () => {
   console.log(`App listening at http://${hostname}:${port}`)
 })
 
+const ServerlessHttp = require('serverless-http');
+const handler = ServerlessHttp(app);
+
 module.exports.handler = async (event, context) => {
   const res = await handler(event, context);
   return res;
-}
+};

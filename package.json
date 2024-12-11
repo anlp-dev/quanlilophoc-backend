@@ -2,10 +2,10 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "src/server.js",
+  "main": "functions/src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/server.js"
+    "start": "nodemon functions/src/server.js"
   },
   "repository": {
     "type": "git",
@@ -39,6 +39,7 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
+    "esbuild": "^0.24.0",
     "nodemon": "2.0.20"
   }
 }

@@ -3,7 +3,7 @@ const express = require("express");
 const morgan = require("morgan");
 const session = require("express-session");
 const passport = require("passport");
-const secret = require("../configs/secrets");
+const secret = require("./secrets");
 const authMiddleware = require("../middleware/authMiddleware");
 
 const security = (app) => {

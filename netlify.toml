@@ -1,3 +1,7 @@
 [build]
-    function - "src"
-    node_bundler = "esbuild"
+  functions = "functions"
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/main"
+  status = 200
