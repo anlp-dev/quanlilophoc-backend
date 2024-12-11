@@ -5,7 +5,7 @@ const Permission = require('../models/accounts/Permission');
 require('dotenv').config()
 async function connect(){
   try {
-    await mongoose.connect(process.env.URL_DB);
+    await mongoose.connect('mongodb://127.0.0.1:27017/QuanLiLopHoc');
     console.log('Connect successfuly!!!');
   } catch (error) {
     console.log('connect fail!!!');
