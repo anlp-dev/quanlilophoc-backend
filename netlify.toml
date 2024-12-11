@@ -1,5 +1,6 @@
 [build]
   functions = "functions"
+  concurrent = 10
 
 [[redirects]]
   from = "/*"
