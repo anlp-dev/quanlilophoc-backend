@@ -1,0 +1,3 @@
+[build]
+    function - "src"
+    node_bundler = "esbuild"
