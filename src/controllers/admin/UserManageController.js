@@ -5,7 +5,6 @@ class UserManageController {
     async getAll(req, res){
         try{
             const res_data = await UserManageService.getAllUser();
-            console.log(res_data);
             resExport(MESSAGE.SUCCESS.status, MESSAGE.SUCCESS.message, res_data, res);
         }catch (e) {
             resExport(MESSAGE.FAIL.status, MESSAGE.FAIL.message, res);

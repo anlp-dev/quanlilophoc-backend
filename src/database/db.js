@@ -5,11 +5,11 @@ const Permission = require('../models/accounts/Permission');
 require('dotenv').config()
 async function connect(){
   try {
-    if(process.env.NODE_ENV === 'prod'){
-      await mongoose.connect(process.env.URL_DB_PRODUCTION);
-    }else {
-      await mongoose.connect(process.env.URL_DB);
-    }
+    // if(process.env.NODE_ENV === 'prod'){
+    await mongoose.connect('mongodb+srv://anlp:19092003@quanlilophoc.6mvbs.mongodb.net/quan-li-lop-hoc');
+    // }else {
+    //   await mongoose.connect(process.env.URL_DB);
+    // }
     console.log('Connect successfuly!!!');
   } catch (error) {
     console.log('connect fail!!!');
