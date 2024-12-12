@@ -16,18 +16,6 @@ const logRequest = async (req, res, next) => {
   // Giả lập tên user đăng nhập từ hệ thống xác thực
   const user = req.user ? req.user.username : "Anonymous"; // Dựa vào hệ thống auth (JWT, session, etc.)
 
-  console.log(req)
-  // Ghi log
-  console.log({
-    timestamp: new Date(),
-    ip: ip,
-    location: geo,
-    hostname: hostname,
-    user: user,
-    endpoint: req.originalUrl,
-    method: req.method,
-  });
-
   const log = new RequestLog({
     timestamp: new Date(),
     ip,
