@@ -28,7 +28,7 @@ const options = {
       }
     ]
   },
-  apis: ['../routes/*.js'] // Thay đổi đường dẫn này cho phù hợp với cấu trúc project của bạn
+  apis: ['../routes/./*.js'] // Thay đổi đường dẫn này cho phù hợp với cấu trúc project của bạn
 };
 
 const specs = swaggerJsdoc(options);

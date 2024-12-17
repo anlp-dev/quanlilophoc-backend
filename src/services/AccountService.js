@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 const ROLE = require('../enums/role');
 const Teacher = require("../models/class/Teacher");
 const Student = require("../models/class/Student");
+const STATUS_ACCOUNT = require('../enums/statusAccount');
 
 class AccountService {
   async updateAccount(accountData, id){
@@ -23,6 +24,7 @@ class AccountService {
         }
       }
       account.fullname = fullname;
+      account.updateAt = new Date();
       await account.save();
       if(account.roleId.code === ROLE.TEACHER_CODE){
         const teacher = await Teacher.findById(account.teacherId);
@@ -61,6 +63,7 @@ class AccountService {
     try {
       const { username, password, roleId, email, fullname } = accountData;
       const hashedPassword = await bcrypt.hash(password, 10);
+      const status = "00";
 
       const newAccountData = {
         username,
@@ -68,6 +71,7 @@ class AccountService {
         roleId,
         email,
         fullname,
+        status: STATUS_ACCOUNT.INACTIVE,
         createdAt: new Date(),
       };
 
@@ -102,16 +106,14 @@ class AccountService {
   // login
    async login(req) {
     try {
-      // const user_res = await Account.findById(req.user._id);
-      // if (!user_res) {
-      //   return {
-      //     status: Error.USER_INVALID.status,
-      //     message: Error.USER_INVALID.message,
-      //   };
-      // }
-
-
-
+      const user = await Account.findOne({ id: req.user._id });
+      // console.log(user)
+      if(user?.status === STATUS_ACCOUNT.INACTIVE){
+          return {
+            status: 400,
+            message: 'Tài khoản của bạn chưa được kích hoạt, vui lòng truy cập gmail để kích hoạt tài khoản'
+          }
+      }
       const token = this.generateToken(req.user._id);
       if (!token) {
         return {
