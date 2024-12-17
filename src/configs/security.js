@@ -30,8 +30,8 @@ const security = (app) => {
 
   // cac routes phai co token moi co the truy cap duoc
   app.use((req, res, next) => {
-    const noAuthPaths = ["/auth/login", "/auth/register", "/api-docs", "/role/", "/email/", "/system/statistics/requests", "/system/log"];
-    if (noAuthPaths.includes(req.path)) {
+    const noAuthPaths = ["/auth/login", "/auth/register", "/api-docs", "/role/", "/email/", "/system/statistics/requests", "/system/log", "/favicon.ico"];
+    if (noAuthPaths.includes(req.path) || req.path.startsWith("/email/verify/")) {
       next();
     } else {
       authMiddleware(req, res, next);
