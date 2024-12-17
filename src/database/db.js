@@ -7,10 +7,12 @@ async function connect(){
   try {
     if(process.env.NODE_ENV === 'prod'){
       await mongoose.connect(process.env.URL_DB_PRODUCTION);
+      console.log('Connect successfuly mode production!!!');
     }else {
       await mongoose.connect(process.env.URL_DB);
+      console.log('Connect successfuly mode dev!!!');
+
     }
-    console.log('Connect successfuly!!!');
   } catch (error) {
     console.log('connect fail!!!');
   }

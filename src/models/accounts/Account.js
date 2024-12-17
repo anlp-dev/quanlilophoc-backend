@@ -9,7 +9,10 @@ const Account = new Schema({
   fullname: {type: String, required: true},
   studentId: {type: mongoose.Schema.Types.ObjectId, ref: 'Student'},
   teacherId: {type: mongoose.Schema.Types.ObjectId, ref: 'Teacher'},
+  status: {type: String, default: "00"},
   createdAt: {type: Date, default: Date.now},
+  updatedAt: {type: Date, default: null},
+  deleteAt: {type: Date, default: null},
 }, { collection: 'account' })
 
 module.exports = mongoose.model('Account', Account);
