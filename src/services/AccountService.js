@@ -8,6 +8,8 @@ const jwt = require("jsonwebtoken");
 const ROLE = require('../enums/role');
 const Teacher = require("../models/class/Teacher");
 const Student = require("../models/class/Student");
+const EmailService = require("../services/EmailService");
+const crypto = require('crypto');
 const STATUS_ACCOUNT = require('../enums/statusAccount');
 
 class AccountService {
@@ -63,7 +65,6 @@ class AccountService {
     try {
       const { username, password, roleId, email, fullname } = accountData;
       const hashedPassword = await bcrypt.hash(password, 10);
-      const status = "00";
 
       const newAccountData = {
         username,
@@ -89,10 +90,18 @@ class AccountService {
 
       const account = new Account(newAccountData);
       await account.save();
-      if(relatedData){
+      if(relatedData) {
         relatedData.accountId = account._id;
         await relatedData.save();
       }
+      let token = this.generateToken(account._id);
+      const emailData = {
+        to: email,
+        subject: 'Xác nhận email của bạn!!!',
+        link: `http://127.0.0.1:9999/email/verify/${token}`,
+      }
+      await EmailService.send(emailData);
+
     } catch (error) {
       throw error; // Ném lỗi để controller xử lý
     }
@@ -106,9 +115,8 @@ class AccountService {
   // login
    async login(req) {
     try {
-      const user = await Account.findOne({ id: req.user._id });
-      // console.log(user)
-      if(user?.status === STATUS_ACCOUNT.INACTIVE){
+      const user = await Account.findById(req.user._id);
+      if(user.status === STATUS_ACCOUNT.INACTIVE){
           return {
             status: 400,
             message: 'Tài khoản của bạn chưa được kích hoạt, vui lòng truy cập gmail để kích hoạt tài khoản'
@@ -145,6 +153,26 @@ class AccountService {
       res.json({ status: error.status, message: error.message });
     }
   }
+
+  async verifyEmail(token){
+    try{
+      const account = await this.getUserByToken(token);
+      account.status = STATUS_ACCOUNT.ACTIVE;
+      await account.save();
+    }catch (e) {
+      throw new Error(e);
+    }
+  }
+  async getUserByToken(token) {
+    try {
+      const decoded = jwt.verify(token, secret.JWT_SECRET_KEY);
+      const account = await Account.findById(decoded.userId);
+      return account;
+    } catch (error) {
+      console.error('Error verifying token or fetching user:', error);
+      return null;
+    }
+  };
 }
 
 module.exports = new AccountService();

@@ -2,6 +2,7 @@ const Error = require("../messages/errors/Error");
 const Mess_Success = require("../messages/success/MessageSuccess");
 const authMiddleware = require("../middleware/authMiddleware");
 const AccountService = require("../services/AccountService");
+const crypto = require('crypto');
 class SecurityController {
   // [POST] /auth/register
   async register(req, res) {
@@ -45,6 +46,20 @@ class SecurityController {
     } catch (error) {
       console.log(error)
       res.json({ status: error.status, message: error.message });
+    }
+  }
+
+  async verifyEmail(req, res){
+    try{
+      let token = req.params.token;
+      if(token) {
+        await AccountService.verifyEmail(token);
+        res.redirect('http://127.0.0.1:5173/verifyEmail');
+      }else{
+        res.redirect('http://127.0.0.1:5173/');
+      }
+    }catch (e) {
+      throw new Error(e.message);
     }
   }
 }

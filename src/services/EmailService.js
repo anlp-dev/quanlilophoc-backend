@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 
 class EmailService {
   async send(emailData) {
-    const { to, subject, text } = emailData;
+    const { to, subject, link } = emailData;
 
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -90,15 +90,15 @@ class EmailService {
       <body>
         <div class="container">
           <div class="header">
-            <h1><i class="fas fa-envelope-open-text icon"></i> Xác nhận Email</h1>
+            <h1><i class="fas fa-envelope-open-text icon"></i> ${subject}</h1>
           </div>
           <div class="content">
             <div class="row">
               <div class="col-md-12 text-center">
                 <p class="lead">Xin chào <span class="highlight">${to}</span>!</p>
-                <p>Cảm ơn bạn đã đăng ký tài khoản tại <span class="highlight">[Tên website/dịch vụ]</span>.</p>
+                <p>Cảm ơn bạn đã đăng ký tài khoản tại <span class="highlight">[https://qllh.netlify.app/]</span>.</p>
                 <p>Để hoàn tất quá trình đăng ký, vui lòng xác nhận địa chỉ email của bạn bằng cách nhấp vào nút bên dưới:</p>
-                <a href="${text}" class="button" style="color: #ffffff;">
+                <a href="${link}" class="button" style="color: #ffffff;">
                   <i class="fas fa-check-circle icon"></i> Xác nhận Email
                 </a>
                 <p>Nếu bạn gặp bất kỳ vấn đề nào, vui lòng liên hệ với chúng tôi tại
