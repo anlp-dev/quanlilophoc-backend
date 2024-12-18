@@ -26,11 +26,11 @@ const logRequest = async (req, res, next) => {
     method: req.method,
   });
 
-  // try {
-  //   await log.save();
-  // } catch (err) {
-  //   console.error("Error saving log:", err);
-  // }
+  try {
+    await log.save();
+  } catch (err) {
+    console.error("Error saving log:", err);
+  }
 
   next(); // Tiếp tục xử lý request
 };
