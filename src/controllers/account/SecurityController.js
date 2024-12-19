@@ -54,9 +54,11 @@ class SecurityController {
       let token = req.params.token;
       if(token) {
         await AccountService.verifyEmail(token);
-        res.redirect('http://127.0.0.1:5173/verifyEmail');
+        res.redirect('https://qllh.netlify.app/verifyEmail');
+        // res.redirect('http://127.0.0.1:5173/verifyEmail');
       }else{
-        res.redirect('http://127.0.0.1:5173/');
+        res.redirect('https://qllh.netlify.app/');
+        // res.redirect('http://127.0.0.1:5173/');
       }
     }catch (e) {
       throw new Error(e.message);
