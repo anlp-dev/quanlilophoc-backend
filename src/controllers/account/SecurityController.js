@@ -1,7 +1,7 @@
-const Error = require("../messages/errors/Error");
-const Mess_Success = require("../messages/success/MessageSuccess");
-const authMiddleware = require("../middleware/authMiddleware");
-const AccountService = require("../services/AccountService");
+const Error = require("../../messages/errors/Error");
+const Mess_Success = require("../../messages/success/MessageSuccess");
+const authMiddleware = require("../../middleware/authMiddleware");
+const AccountService = require("../../services/account/AccountService");
 const crypto = require('crypto');
 class SecurityController {
   // [POST] /auth/register

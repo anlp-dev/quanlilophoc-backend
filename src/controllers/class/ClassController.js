@@ -1,11 +1,11 @@
-const Error = require("../messages/errors/Error");
-const Mess_Success = require("../messages/success/MessageSuccess");
-const ClassService = require("../services/ClassService");
+const Error = require("../../messages/errors/Error");
+const Mess_Success = require("../../messages/success/MessageSuccess");
+const ClassService = require("../../services/class/ClassService");
 
 class ClassController {
   async get(req, res){
     try {
-      const res_data = await ClassService.getAllStudent();
+      const res_data = await ClassService.getAllClass();
       res.json({
         status: Mess_Success.GET_CLASS.status,
         message: Mess_Success.GET_CLASS.message,

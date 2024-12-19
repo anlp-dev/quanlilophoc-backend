@@ -1,9 +1,9 @@
-const Error = require("../messages/errors/Error");
-const Mess_Success = require("../messages/success/MessageSuccess");
-const RoleService = require("../services/RoleService");
+const Error = require("../../messages/errors/Error");
+const Mess_Success = require("../../messages/success/MessageSuccess");
+const RoleService = require("../../services/account/RoleService");
 
 class RoleController {
-  async get(req, res){
+  async getAll(req, res){
     try {
       const res_data = await RoleService.getRole();
       res.json({

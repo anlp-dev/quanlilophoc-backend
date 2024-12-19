@@ -1,4 +1,4 @@
-const Class = require("../models/class/Class");
+const Class = require("../../models/class/Class");
 
 class ClassService{
   async getAllClass(){

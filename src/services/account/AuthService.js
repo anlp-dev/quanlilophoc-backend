@@ -1,5 +1,5 @@
 // AuthService.js
-const secret = require("../configs/secrets");
+const secret = require("../../configs/secrets");
 const jwt = require('jsonwebtoken');
 
 class AuthService {
