@@ -1,16 +1,16 @@
-const Error = require("../messages/errors/Error");
-const Mess_Success = require("../messages/success/MessageSuccess");
+const Error = require("../../messages/errors/Error");
+const Mess_Success = require("../../messages/success/MessageSuccess");
 const bcrypt = require("bcryptjs");
-const Account = require("../models/accounts/Account");
+const Account = require("../../models/accounts/Account");
 const { v4: uuidv4 } = require("uuid");
-const secret = require("../configs/secrets");
+const secret = require("../../configs/secrets");
 const jwt = require("jsonwebtoken");
-const ROLE = require('../enums/role');
-const Teacher = require("../models/class/Teacher");
-const Student = require("../models/class/Student");
-const EmailService = require("../services/EmailService");
+const ROLE = require('../../enums/role');
+const Teacher = require("../../models/class/Teacher");
+const Student = require("../../models/class/Student");
+const EmailService = require("../system/EmailService");
 const crypto = require('crypto');
-const STATUS_ACCOUNT = require('../enums/statusAccount');
+const STATUS_ACCOUNT = require('../../enums/statusAccount');
 
 class AccountService {
   async updateAccount(accountData, id){

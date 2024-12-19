@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const RoleController = require("../../controllers/RoleController");
+const RoleController = require("../../controllers/account/RoleController");
 
-router.get('/', RoleController.get);
-// router.get('/:id', ClassController.getById);
+router.get('/', RoleController.getAll);
 // router.post('/create', ClassController.create);
 // router.post('/create/many', ClassController.createMany);
 // router.put('/update/:id', ClassController.updateStudent);

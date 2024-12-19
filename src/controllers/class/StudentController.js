@@ -1,6 +1,6 @@
-const Error = require("../messages/errors/Error");
-const Mess_Success = require("../messages/success/MessageSuccess");
-const StudentService = require("../services/StudentService");
+const Error = require("../../messages/errors/Error");
+const Mess_Success = require("../../messages/success/MessageSuccess");
+const StudentService = require("../../services/class/StudentService");
 
 class StudentController {
 

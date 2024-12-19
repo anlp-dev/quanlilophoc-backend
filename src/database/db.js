@@ -24,13 +24,15 @@ async function getPermissionsForUser(userId){
     if(!account){
       return [];
     }
-    const rolePermission = await RolePermission.find({roleId: account.roleId});
-    const permissionIds = rolePermission.map(rp => rp.permissionId);
-    const permissions = await Permission.find({_id: {$in: permissionIds}})
-    return permissions.map(p => p.name);
+    const rolePermission = await RolePermission.findOne({ roleId: account.roleId }).populate('roleId');
+    const permissionId = rolePermission.permissionIds.flat();
+    const objectIds = permissionId.map(p => mongoose.Types.ObjectId(p));
+    const permissions = await Permission.find({ _id: { $in: objectIds } });
+    rolePermission.permissionIds = permissions;
+    return permissions.map(p => p.code);
   } catch (error) {
     console.error('Lỗi khi lấy quyền:', error);
-    return [];                                                                                                                                                                                                    
+    return [];
   }
 }
 

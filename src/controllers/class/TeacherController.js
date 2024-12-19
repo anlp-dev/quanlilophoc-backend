@@ -1,6 +1,6 @@
-const Error = require("../messages/errors/Error");
-const Mess_Success = require("../messages/success/MessageSuccess");
-const TeacherService = require("../services/TeacherService");
+const Error = require("../../messages/errors/Error");
+const Mess_Success = require("../../messages/success/MessageSuccess");
+const TeacherService = require("../../services/class/TeacherService");
 
 class TeacherController {
   // [GET] /teacher/all

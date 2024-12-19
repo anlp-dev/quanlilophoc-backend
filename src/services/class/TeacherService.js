@@ -1,4 +1,4 @@
-const Teacher = require("../models/class/Teacher");
+const Teacher = require("../../models/class/Teacher");
 
 class TeacherService {
   // get all teacher
