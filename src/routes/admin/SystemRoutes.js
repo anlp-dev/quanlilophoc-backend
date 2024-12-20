@@ -5,7 +5,6 @@ const UserManageController = require('../../controllers/admin/UserManageControll
 const {checkPermission} = require("../../middleware/authPermission");
 
 router.get("/statistics/requests", LogController.getLog);
-router.post("/log", LogController.saveLog)
 router.get("/user", UserManageController.getAll);
 router.put("/user/:id", UserManageController.updateUser);
 module.exports = router;
