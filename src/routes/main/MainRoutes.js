@@ -19,7 +19,7 @@ router.use('/class', ClassRouter);
 router.use('/teacher', TeacherRouter);
 router.use('/student', StudentRouter);
 router.use("/auth", AuthRouter);
-router.use("/system", checkPermission('SUPER_ADMIN', "CRUD_ADMIN"), SystemRouter)
+router.use("/system", checkPermission("CRUD_ADMIN"), SystemRouter)
 router.use("/admin", checkPermission('SUPER_ADMIN'), AdminRouter)
 router.use("/",  getHomePage);
 
