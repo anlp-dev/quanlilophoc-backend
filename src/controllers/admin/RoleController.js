@@ -3,6 +3,19 @@ const MESSAGE = require("../../messages/message")
 const RequestLog = require("../../models/admin/Log");
 const RoleService = require("../../services/Admin/RoleService");
 class RoleController {
+
+    async getAllRoleByAdmin(req, res){
+        try{
+            const data = await RoleService.getAllRoleAdmin();
+            if(data){
+                resExport(MESSAGE.SUCCESS.status, MESSAGE.SUCCESS.message, data, res);
+            }else{
+                resExport(MESSAGE.FAIL.status, MESSAGE.FAIL.message, null, res);
+            }
+        }catch (e) {
+            resExport(MESSAGE.ERROR.status, MESSAGE.ERROR.message, null, res);
+        }
+    }
     async getRole(req, res){
         try {
             const data = await RoleService.getAllRole();
