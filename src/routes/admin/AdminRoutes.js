@@ -6,6 +6,7 @@ const LogController = require("../../controllers/admin/LogController");
 //roles
 router.get("/roles", RoleController.getRole);
 router.post("/roles/save", RoleController.saveRole);
+router.get("/roles-manage", RoleController.getAllRoleByAdmin);
 
 //role-permission
 router.post("/roles-permission/save", RoleController.saveRolePermission)

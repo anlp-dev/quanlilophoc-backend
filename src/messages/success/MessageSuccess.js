@@ -6,17 +6,17 @@ class MessageSuccess{
 }
 
 const Success = {
-  CREATE_SUCCESS: new MessageSuccess(201, 'Create success.'),
+  CREATE_SUCCESS: new MessageSuccess(200, 'Create success.'),
   UPDATE_SUCCESS: new MessageSuccess(200, 'Update success.'),
-  DELETE_SUCCESS: new MessageSuccess(202, 'Delete success.'),
+  DELETE_SUCCESS: new MessageSuccess(200, 'Delete success.'),
   GET_DATA: new MessageSuccess(200, 'Get data success.'),
-  REGISTER_SUCCESS: new MessageSuccess(201, 'Register success.'),
+  REGISTER_SUCCESS: new MessageSuccess(200, 'Register success.'),
   LOGIN_SUCCESS: new MessageSuccess(200, 'Login success.'),
   LOGOUT_SUCCESS: new MessageSuccess(200, 'Logout success.'),
   LOAD_ID_BY_TOKEN: new MessageSuccess(200, 'Load id by token success.'),
-  GET_CLASS: new MessageSuccess(202, "Get all class success"),
-  ADD_CLASS: new MessageSuccess(202, "Create class success"),
-  GET_ROLE: new MessageSuccess(203, "Get role success"),
+  GET_CLASS: new MessageSuccess(200, "Get all class success"),
+  ADD_CLASS: new MessageSuccess(200, "Tạo mới lớp học thành công !!!"),
+  GET_ROLE: new MessageSuccess(200, "Get role success"),
 }
 
 module.exports = Success;

@@ -102,6 +102,14 @@ class RoleService {
             throw new Error(e);
         }
     }
+
+    async getAllRoleAdmin(){
+        try{
+            return await Role.find({});
+        }catch (e) {
+            throw new Error(e);
+        }
+    }
 }
 
 module.exports = new RoleService();
