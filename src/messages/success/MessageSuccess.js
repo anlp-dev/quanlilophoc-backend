@@ -17,6 +17,8 @@ const Success = {
   GET_CLASS: new MessageSuccess(200, "Get all class success"),
   ADD_CLASS: new MessageSuccess(200, "Tạo mới lớp học thành công !!!"),
   GET_ROLE: new MessageSuccess(200, "Get role success"),
+  UPDATE_CLASS: new MessageSuccess(200, "Lưu thông tin lớp học thành công !!!"),
+  DELETE_CLASS: new MessageSuccess(200, "Xóa class thành công !!!"),
 }
 
 module.exports = Success;
