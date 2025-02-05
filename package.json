@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon functions/server.js",
-    "build": "npm run clean && npm run build",
+    "build": "npm run clean && nodemon functions/server.js",
     "production": "npm run build && cross-env NODE_ENV=production node functions/server.js"
   },
   "repository": {
