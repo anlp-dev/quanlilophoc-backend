@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const Account = require('../models/accounts/Account');
+const User = require('../models/user/User');
 const bcrypt = require('bcryptjs');
 
 
@@ -8,7 +8,7 @@ passport.use(
   new LocalStrategy(
     async (username, password, done) => {
       try {
-        const account = await Account.findOne({username: username});
+        const account = await User.findOne({username: username});
         if(!account){
           return done(null, false, {message: 'Tài khoản không tồn tại!'});
         }
@@ -29,6 +29,6 @@ passport.serializeUser((account, done) => {
 })
 
 passport.deserializeUser(async (id, done) => {
-  const account = await Account.findById(id);
+  const account = await User.findById(id);
   done(null, account);
 })

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const Account = require('../models/accounts/Account');
-const RolePermission = require('../models/accounts/RolePermission');
-const Permission = require('../models/accounts/Permission');
+const User = require('../models/user/User');
+const RolePermission = require('../models/user/RolePermission');
+const Permission = require('../models/user/Permission');
 require('dotenv').config()
 async function connect(){
   try {
@@ -20,7 +20,7 @@ async function connect(){
 
 async function getPermissionsForUser(userId){
   try {
-    const account = await Account.findById(userId);
+    const account = await User.findById(userId);
     if(!account){
       return [];
     }

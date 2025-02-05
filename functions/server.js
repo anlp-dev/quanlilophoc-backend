@@ -1,30 +1,36 @@
 const express = require('express');
-require('dotenv').config()
-const app = express();
-const configViewEngine = require('../src/configs/viewEngine');
-const router = require('../src/routes/main/MainRoutes');
-const { connect } = require('../src/database/db');
-const {logRequest} = require('../src/middleware/rateLimiter')
+require('dotenv').config();
 const cors = require('cors');
-const port = process.env.PORT || 88;
-// const hostname = process.env.HOST_NAME || 'localhost';
-const security = require('../src/configs/security');
+const logRequestMiddleware = require("../src/middleware/logRequestMiddleware");
 
-require('../src/configs/auth');
-app.use(logRequest)
+const app = express();
+
+// Middleware xử lý dữ liệu request
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(logRequestMiddleware); // ghi log request
+
+
+// Cấu hình bảo mật, CORS
 app.use(cors());
-connect();
-configViewEngine(app);
-security(app);
-app.use(router)
-app.listen(port, () => {
-  console.log(`App listening at ${port}`)
-})
+require('../src/configs/auth'); // Nếu không cần truyền `app`, gọi trực tiếp
 
-// const ServerlessHttp = require('serverless-http');
-// const handler = ServerlessHttp(app);
-//
-// module.exports.handler = async (event, context) => {
-//   const res = await handler(event, context);
-//   return res;
-// };
+// Kết nối Database
+const { connect } = require('../src/database/db');
+connect();
+
+// Cấu hình Template Engine
+const configViewEngine = require('../src/configs/viewEngine');
+configViewEngine(app);
+
+// Cấu hình bảo mật
+const security = require('../src/configs/security');
+security(app);
+
+// Định tuyến chính
+const router = require('../src/routes/MainRouter');
+app.use(router);
+
+// Khởi động server
+const { startServer } = require('../src/configs/portCustom');
+startServer(app);
