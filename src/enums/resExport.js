@@ -1,5 +1,5 @@
 const resExport = (status, mess, data = null, res) => {
-    res.json({
+    res.status(status).json({
         status: status,
         message: mess,
         data: data,

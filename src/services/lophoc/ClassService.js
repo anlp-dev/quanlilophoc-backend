@@ -53,12 +53,35 @@ class ClassService{
     }
   }
 
-  async updateClassById(id, classReq){
+  async updateClassById(classReq){
     try {
-      const res_data = await Classes.findByIdAndUpdate(id, classReq);
+      const checkClassesCode = await Classes.findOne({ma: classReq.code});
+      if(checkClassesCode){
+        throw new Error('Mã lớp học đã tồn tại !!!')
+      }
+      const classDataUpdate = {
+        ma: classReq.code,
+        khoi: classReq.khoi,
+        name: classReq.className
+      }
+      await Classes.findByIdAndUpdate(classReq._id, classDataUpdate);
+      const res_data = await Classes.find({});
       return res_data;
     } catch (error) {
-      
+      throw new Error(error);
+    }
+  }
+
+  async removeClassById(idReq){
+    try{
+      if(!idReq){
+        throw new Error("Lỗi khi xóa !!!")
+      }
+      await Classes.findByIdAndDelete(idReq);
+      const res_data = await Classes.find({});
+      return res_data;
+    }catch (e) {
+      throw new Error(e);
     }
   }
 }
